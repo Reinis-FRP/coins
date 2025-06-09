@@ -34,7 +34,7 @@ hidapi-rusb = "1.3"
 tokio = { version = "1.34", features = ["sync", "rt"] }
 
 # linux native only
-[target.'cfg(target_os = "linux")'.dependencies]
+[target.'cfg(any(target_os = "linux", target_os = "openbsd"))'.dependencies]
 nix = "0.26"
 
 # WASM

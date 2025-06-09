@@ -16,7 +16,7 @@ use std::{
 use super::NativeTransportError;
 
 const LEDGER_VID: u16 = 0x2c97;
-#[cfg(not(target_os = "linux"))]
+#[cfg(all(not(target_os = "linux"), not(target_os = "openbsd")))]
 const LEDGER_USAGE_PAGE: u16 = 0xFFA0;
 const LEDGER_CHANNEL: u16 = 0x0101;
 // for Windows compatability, we prepend the buffer with a 0x00
@@ -40,12 +40,12 @@ impl std::fmt::Debug for TransportNativeHID {
     }
 }
 
-#[cfg(not(target_os = "linux"))]
+#[cfg(all(not(target_os = "linux"), not(target_os = "openbsd")))]
 fn is_ledger(dev: &DeviceInfo) -> bool {
     dev.vendor_id() == LEDGER_VID && dev.usage_page() == LEDGER_USAGE_PAGE
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "openbsd"))]
 fn is_ledger(dev: &DeviceInfo) -> bool {
     dev.vendor_id() == LEDGER_VID
 }

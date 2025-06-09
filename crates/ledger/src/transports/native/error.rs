@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 // Mock the type in other target_os
-#[cfg(not(target_os = "linux"))]
+#[cfg(all(not(target_os = "linux"), not(target_os = "openbsd")))]
 mod nix {
     #[derive(thiserror::Error, Debug, Copy, Clone)]
     pub enum Error {
