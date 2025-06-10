@@ -8,7 +8,6 @@ use crate::{
 use byteorder::{BigEndian, ReadBytesExt};
 use hidapi_rusb::{DeviceInfo, HidApi, HidDevice};
 use once_cell::sync::Lazy;
-use tracing::debug;
 use std::{
     io::Cursor,
     sync::{Mutex, MutexGuard},
@@ -62,7 +61,6 @@ fn first_ledger(api: &HidApi) -> Result<HidDevice, NativeTransportError> {
         .next()
         .ok_or(NativeTransportError::DeviceNotFound)?;
 
-    debug!("Opening first ledger device: {:?}", device);
     open_device(api, device)
 }
 
